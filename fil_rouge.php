@@ -17,6 +17,18 @@ $mot_a_trouver = $list_de_mot[$index]; //retourne un mot de la liste
 $reponse = readline('Entrer un mot: ');
 echo $mot_a_trouver == $reponse ? 'bien joué c\'est le bon mot' : 'raté';
 
+*/
+
+###############PENDU 2################
+$list_de_mot = array('mystere', 'toto', 'test', 'aaaaaa');
+$index = array_rand($list_de_mot, 1); //choisit un index parmi la liste
+$mot_a_trouver = $list_de_mot[$index]; //retourne un mot de la liste
+
+do{
+    $reponse = readline('Entrer un mot: ');
+    echo $mot_a_trouver != $reponse? 'raté' : 'trouvé';
+}while($mot_a_trouver != $reponse);
+
 
 
 
