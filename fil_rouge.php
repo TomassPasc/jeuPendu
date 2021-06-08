@@ -1,78 +1,32 @@
 <?php
 
-/*
 
-###############PENDU 1################
-//exercice 1
-$mystere = 'mystere';
-$reponse = readline('Entrer un mot: ');
-
-echo $mystere == $reponse ? 'bien joué c\'est le bon mot' : 'raté';
-
-
-//exercice 2
 $list_de_mot = array('mystere', 'toto', 'test', 'aaaaaa');
-$index = array_rand($list_de_mot, 1); //choisit un index parmi la liste
-$mot_a_trouver = $list_de_mot[$index]; //retourne un mot de la liste
-$reponse = readline('Entrer un mot: ');
-echo $mot_a_trouver == $reponse ? 'bien joué c\'est le bon mot' : 'raté';
-
-
-
-###############PENDU 2################
-$list_de_mot = array('mystere', 'toto', 'test', 'aaaaaa');
-$index = array_rand($list_de_mot, 1); //choisit un index parmi la liste
-$mot_a_trouver = $list_de_mot[$index]; //retourne un mot de la liste
-
-do{
-    $reponse = readline('Entrer un mot: ');
-    echo $mot_a_trouver != $reponse? 'raté' : 'trouvé';
-}while($mot_a_trouver != $reponse);
-
-
-###############PENDU 3################
-//exercice 1
-$list_de_mot = array('mystere', 'toto', 'test', 'aaaaaa');
-$index = array_rand($list_de_mot, 1); //choisit un index parmi la liste
-$mot_a_trouver = $list_de_mot[$index]; //retourne un mot de la liste
-
-for ($i = 5; $i >=0; $i--){
-    $i > 1 ? printf('vous avez %d vies'.PHP_EOL, $i) : printf('vous avez %d vie'.PHP_EOL, $i); // affiche et gère le s de vie
-    $reponse = readline('Entrer un mot: ');
-    if($mot_a_trouver != $reponse) {
-        echo 'raté'.PHP_EOL;
-        if ($i == 0){
-            echo 'perdu';
-        }
-    }
-    else {
-        echo'gagné';
-        break;
-    }
-
-*/
-
-//exercice 2
-$list_de_mot = array('mystere', 'toto', 'test', 'aaaaaa');
-$index = array_rand($list_de_mot, 1); //choisit un index parmi la liste
-$mot_a_trouver = $list_de_mot[$index]; //retourne un mot de la liste
+$mot_a_trouver = $list_de_mot[array_rand($list_de_mot)]; //retourne un mot de la liste
 $rappel = []; //liste des mots et lettre déjà proposé hormis doublons
 
-$mot_a_trouver = 'aabc';
+$mot_a_trouver = 'aaaaaaaabc';
 
 $result = str_repeat('_ ' , strlen($mot_a_trouver)); //permet d'afficher le motif à trouver ex: _ _ _ _ pour test
 
-
+//boucle principal du programme
 for ($vie = 5; $vie >=0; $vie--){
-    //var_dump($rappel);
-    echo $result.PHP_EOL;
+    if (!empty($rappel)) {
+        echo 'Vous avez essayer les valeurs suivantes: ';
+    foreach ($rappel as $valeur) { //affichage des valeurs déjà tapé
+            echo $valeur.' b';
+        }  
+        echo PHP_EOL;
+    }
+    echo 'MOT A TROUVER: '.$result.PHP_EOL;
     $vie > 1 ? printf('vous avez %d vies'.PHP_EOL, $vie) : printf('vous avez %d vie'.PHP_EOL, $vie); // affiche et gère le s de vie
     $reponse = readline('Entrer une lettre ou le mot si vous pensez l\'avoir trouver: ');
+    array_push($rappel, $reponse); //met la valeur dans une liste pour pouvoir afficher les valeurs déjà essayées
 
     //l'utilisateur entre une lettre:
     if(strlen($reponse) == 1){ 
         if (strpos($mot_a_trouver, $reponse) === false) { //la lettre ne se trouve pas dans le mot
-            echo 'raté';
+            echo 'raté'.PHP_EOL;
         }
         else {
             $doublon = 0;
@@ -87,10 +41,11 @@ for ($vie = 5; $vie >=0; $vie--){
                 break;
             }
             if ($doublon > 1) {
+                for($d =0; $d <= $doublon; $d++){
+                    array_pop($rappel); //retire les doublons du rappel
+                }
                 $vie ++; // permet de ne pas perdre de vie lorsque la lettre se trouve plus d'une fois dans le mot.
-            }
-            
-            
+            }    
         }
     }
     //l'utilisateur entre un mot:
@@ -107,11 +62,11 @@ for ($vie = 5; $vie >=0; $vie--){
         }
 
     }
- 
+    echo '-----------------'.PHP_EOL;
+    echo '#################'.PHP_EOL;
+    echo '-----------------'.PHP_EOL;
+
 }
-
-
-
 
 
 
