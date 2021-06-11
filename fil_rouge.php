@@ -1,11 +1,34 @@
 <?php
+//todo gerer majuscule minuscule 
 
-
-$list_de_mot = array('mystere', 'toto', 'test', 'aaaaaa');
+//$list_de_mot = array('mystere', 'toto', 'test', 'aaaaaa');
+$list_de_mot = file("dico.txt");
+array_walk($list_de_mot, 'trim_value');
 $mot_a_trouver = $list_de_mot[array_rand($list_de_mot)]; //retourne un mot de la liste
 $rappel = []; //liste des mots et lettre déjà proposé hormis doublons
 $vie = 5;
-//$mot_a_trouver = 'aaaaaaaabc';
+
+
+
+
+//ajout mot dictionnaire
+$ajoutMot = readline('Voulez vous ajouter un mot? Tapez o pour oui');
+if ($ajoutMot == 'o'){
+    //$mot = readline('quel est votre mot?');
+    // $fp = fopen('dico.txt', 'a+');
+    // fputs($fp, $mot);
+    //fclose($fp);
+    file_put_contents('dico.txt', 'vert');
+}
+
+
+
+
+
+
+
+
+
 
 $result = str_repeat('_ ' , strlen($mot_a_trouver)); //permet d'afficher le motif à trouver ex: _ _ _ _ pour test
 
@@ -86,5 +109,10 @@ function mot_a_trouver_cache($arr, $vie, $result){
     echo 'MOT A TROUVER: '.$result.PHP_EOL;
     $vie > 1 ? printf('vous avez %d vies'.PHP_EOL, $vie) : printf('vous avez %d vie'.PHP_EOL, $vie); // affiche et gère le s de vie
 
+}
+
+function trim_value(&$value)
+{
+    $value = trim($value);
 }
 

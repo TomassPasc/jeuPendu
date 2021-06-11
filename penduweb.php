@@ -28,15 +28,6 @@ $gagne = false; //si le joueur gagne passe à true
 $rate = false; //si le joueur se trompe passe à true
 $perdu = false; // si le joeur perd passe à true
 
-
-//$_SESSION['list_de_mot'] = array('mystere', 'toto', 'test', 'aaaaaa');
-//$_SESSION['mot_a_trouver'] = $_SESSION['list_de_mot'][array_rand($_SESSION['list_de_mot'])];
-//$_SESSION['mot_a_trouver'] = 'test';
-//$_SESSION['rappel'] = array();
-//$_SESSION['vie'] = 5;
-//$_SESSION['result'] = str_repeat('_ ' , strlen($_SESSION['mot_a_trouver']));
-//$_SESSION['reponse'] = $_POST['tentative']; 
-
 array_push($_SESSION['rappel'], $_SESSION['reponse']); //met la valeur dans une liste pour pouvoir afficher les valeurs déjà essayées
 
 
@@ -91,7 +82,17 @@ function mot_a_trouver_cache($arr, $result){
     echo 'MOT A TROUVER: '.$result.PHP_EOL;
 
 }
+function check_valeur_identique($reponse, $rappel){
+    if(in_array($reponse, $rappel) && $reponse != ''){ //verifie que la valeur n'est pas identique
+        echo 'Vous avez déjà entrer cette valeur entrer une nouvelle valeur: ';
+    }
+}
 
+/* echo 'rappel'.PHP_EOL;
+var_dump($_SESSION['rappel']);
+echo 'reponse'.PHP_EOL;
+var_dump($_SESSION['reponse']);
+echo $_SESSION['reponse'] == ''; */
 ?>
 
 
@@ -104,6 +105,8 @@ function mot_a_trouver_cache($arr, $result){
     <title>Le pendu</title>
 </head>
 <body>
+
+<!-- <?php //check_valeur_identique( $_SESSION['reponse'], $_SESSION['rappel']) ?> -->
     <h1>Le super jeu du pendu.</h1>
     
     <?php if(!$gagne && !$perdu){?>
@@ -129,3 +132,7 @@ function mot_a_trouver_cache($arr, $result){
 
 </body>
 </html>
+
+<?php if($gagne || $perdu){
+session_destroy();
+} ?>
